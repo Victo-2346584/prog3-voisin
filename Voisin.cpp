@@ -1,12 +1,14 @@
 #include <iostream>
 #include "Statistiques.h"
 #include "ResourceLoader.h"
+#include "KNN.h"
+#include <map>
 
 using namespace std;
 
 int main()
 {
-	vector<float> valeurs = { 1.0, 2.0, 3.0, 4.0, 5.0 };
+	/*vector<float> valeurs = {1.0, 2.0, 3.0, 4.0, 5.0};
 	vector<float> point1 = { 1.0, 2.0, 3.0 };
 	vector<float> point2 = { 4.0, 6.0, 8.0 };
 
@@ -44,5 +46,23 @@ int main()
 	{
 		cout << iterateurData->donnee->acide_citrique << endl;
 		iterateurData = iterateurData->suivant;
+	}*/
+	const string& filePath{ "C:\\Users\\hugon\\Downloads\\binary-winequality-white.csv" };
+	KNN* test = new KNN(filePath);
+	map<string, int> resultats = test->tester();
+
+	int total = 0;
+	cout << "Resultats du test :" << endl;
+	for (const auto& paire : resultats) {
+		cout << paire.first << " : " << paire.second << endl;
+		total += paire.second;
 	}
+
+	int bon = 0;
+	bon += resultats["vraiPositif"];
+	bon += resultats["vraiNegatif"];
+
+	cout << "Precision du modele : " << endl;
+	float precision = (float)bon / total * 100;
+	cout << precision << "%" << endl;
 }

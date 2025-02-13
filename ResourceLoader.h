@@ -42,13 +42,13 @@ public:
     /// </summary>
     void printData();
     /// <summary>
-    /// 
+    /// renvoie un liste chaine des donnée
     /// </summary>
-    /// <returns></returns>
+    /// <returns>un liste chaine des donnée</returns>
     Noeud* getTrainDataLinked(float);
     /// <summary>
-    /// 
+    /// renvoie un liste chaine des donnée
     /// </summary>
-    /// <returns></returns>
+    /// <returns>un liste chaine des donnée</returns>
     Noeud* getTestDataLinked(float);
 };
