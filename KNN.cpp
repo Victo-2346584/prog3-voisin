@@ -8,7 +8,6 @@ KNN::KNN(string filePath)
 }
 
 int KNN::classifier(Instance instance_test) {
-    // Convertir l'instance en vecteur pour utiliser la fonction de distance
     vector<float> point_test = {
         instance_test.acidite_fixe,
         instance_test.acide_volatile,
@@ -23,11 +22,9 @@ int KNN::classifier(Instance instance_test) {
         instance_test.alcool
     };
 
-    // Vecteur pour stocker les distances avec tous les points d'entraînement
     vector<pair<float, int>> distances;
 
-    // Calculer la distance avec chaque instance d'entraînement
-    for (const auto& train_instance : m_donnees_train) {
+    for (const Instance train_instance : m_donnees_train) {
         vector<float> point_train = {
             train_instance.acidite_fixe,
             train_instance.acide_volatile,
@@ -46,10 +43,8 @@ int KNN::classifier(Instance instance_test) {
         distances.push_back({ distance, train_instance.bon });
     }
 
-    // Trier les distances
     sort(distances.begin(), distances.end());
 
-    // Prendre les k plus proches voisins (ici k=5)
     const int k = 5;
     int count_0 = 0, count_1 = 0;
     for (int i = 0; i < k && i < distances.size(); i++) {
@@ -57,7 +52,6 @@ int KNN::classifier(Instance instance_test) {
         else count_1++;
     }
 
-    // Retourner la classe majoritaire
     return (count_1 > count_0) ? 1 : 0;
 }
 
@@ -69,7 +63,7 @@ map<string, int> KNN::tester() {
         {"fauxNegatif", 0}
     };
 
-    for (const auto& instance : m_donnees_test) {
+    for (const Instance instance : m_donnees_test) {
         int prediction = classifier(instance);
         int realite = instance.bon;
 
